@@ -2,6 +2,7 @@
 
 import mongoose from 'mongoose';
 import { RacesJobModel } from "../models/RacesJobModel";
+
 mongoose.connect('mongodb://127.0.0.1:27017/nest-f1')
     .then(() => console.log('Connected!'));
 

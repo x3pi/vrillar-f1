@@ -2,12 +2,12 @@ import * as mongoose from 'mongoose';
 
 
 interface IRacesJobModel {
-    year: string,
+    year: number,
     status: boolean,
 }
 
 const RacesJobModelSchema = new mongoose.Schema<IRacesJobModel>({
-    year: { type: String, unique: true },
+    year: { type: Number, unique: true },
     status: { type: Boolean },
 });
 

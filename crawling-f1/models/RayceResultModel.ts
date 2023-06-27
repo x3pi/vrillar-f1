@@ -1,7 +1,7 @@
 import * as mongoose from 'mongoose';
 
 
-interface IRayceResult {
+interface IRayceResultModel {
     pkey: string,
     year: Number,
     raceID: Number,
@@ -15,7 +15,7 @@ interface IRayceResult {
     pts: Number;
 }
 
-const rayceResultSchema = new mongoose.Schema<IRayceResult>({
+const RayceResultModelSchema = new mongoose.Schema<IRayceResultModel>({
     pkey: { type: String, unique: true },
     year: { type: Number },
     raceID: { type: Number },
@@ -31,6 +31,6 @@ const rayceResultSchema = new mongoose.Schema<IRayceResult>({
 });
 
 
-const RayceResult = mongoose.model<IRayceResult>('RayceResult', rayceResultSchema);
+const RayceResultModel = mongoose.model<IRayceResultModel>('RayceResult', RayceResultModelSchema);
 
-export { IRayceResult, RayceResult }
+export { IRayceResultModel, RayceResultModel }
