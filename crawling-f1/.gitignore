@@ -13,6 +13,7 @@ logs
 results
 tmp
 
+
 # Build
 public/css/main.css
 
@@ -23,7 +24,10 @@ coverage
 .env
 
 # Dependency directory
-node_modules
+node_modules/*
+!node_modules/tabletojson/
+
+
 bower_components
 
 # Editors
