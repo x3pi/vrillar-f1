@@ -10,6 +10,7 @@ interface IRayceResultModel {
     pos: string;
     no: Number;
     driver: string;
+    lastDriver: string;
     laps: Number;
     timeOrRetired: string;
     pts: Number;
@@ -23,6 +24,7 @@ const RayceResultModelSchema = new mongoose.Schema<IRayceResultModel>({
     pos: { type: String },
     no: { type: Number },
     driver: { type: String },
+    lastDriver: { type: String },
     car: { type: String },
     laps: { type: Number },
     timeOrRetired: { type: String },

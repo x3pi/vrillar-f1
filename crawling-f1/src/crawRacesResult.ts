@@ -29,6 +29,9 @@ function getTableData(url: string) {
         function (tablesAsJson2: any) {
             var rawDocuments: any[] = []
             for (let z = 0; z < tablesAsJson2[0].length; z++) {
+                var data = tablesAsJson2[0][z]['Driver'].trim().replace(/(\r\n|\n|\r)/gm, "").replace(/ +(?= )/g, '');
+                var driver = data?.split(' ');
+                var lastDriver = driver.pop();
                 rawDocuments.push(new RayceResultModel({
                     pkey: sha1(words[0] + words[2] + words[3] + tablesAsJson2[0][z]['Driver'] + tablesAsJson2[0][z]['Laps']),
                     year: words[0],
@@ -36,7 +39,8 @@ function getTableData(url: string) {
                     raceName: words[3],
                     pos: tablesAsJson2[0][z]['Pos'],
                     no: tablesAsJson2[0][z]['No'],
-                    driver: tablesAsJson2[0][z]['Driver'],
+                    driver: driver.join(" "),
+                    lastDriver: lastDriver,
                     car: tablesAsJson2[0][z]['Car'],
                     laps: tablesAsJson2[0][z]['Laps'],
                     timeOrRetired: tablesAsJson2[0][z]['Time/Retired'],
