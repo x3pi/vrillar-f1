@@ -1,22 +1,22 @@
 import * as mongoose from 'mongoose';
 
 
-interface IRayceResultModel {
+interface IRaceResultModel {
     pkey: string,
-    year: Number,
-    raceID: Number,
+    year: number,
+    raceID: number,
     raceName: string,
     car: string,
-    pos: string;
-    no: Number;
-    driver: string;
-    lastDriver: string;
-    laps: Number;
-    timeOrRetired: string;
-    pts: Number;
+    pos: string,
+    no: number,
+    driver: string,
+    lastDriver: string,
+    laps: number,
+    timeOrRetired: string,
+    pts: number,
 }
 
-const RayceResultModelSchema = new mongoose.Schema<IRayceResultModel>({
+const RaceResultModelSchema = new mongoose.Schema<IRaceResultModel>({
     pkey: { type: String, unique: true },
     year: { type: Number },
     raceID: { type: Number },
@@ -33,6 +33,6 @@ const RayceResultModelSchema = new mongoose.Schema<IRayceResultModel>({
 });
 
 
-const RayceResultModel = mongoose.model<IRayceResultModel>('RayceResult', RayceResultModelSchema);
+const RaceResultModel = mongoose.model<IRaceResultModel>('RaceResult', RaceResultModelSchema);
 
-export { IRayceResultModel, RayceResultModel }
+export { IRaceResultModel, RaceResultModel }

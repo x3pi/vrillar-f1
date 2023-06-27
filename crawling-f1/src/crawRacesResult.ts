@@ -3,7 +3,7 @@ import { Tabletojson } from 'tabletojson';
 
 import mongoose from 'mongoose';
 import { RacesJobResultModel } from "../models/RacesJobResultModel";
-import { RayceResultModel } from "../models/RayceResultModel";
+import { RaceResultModel } from "../models/RaceResultModel";
 
 mongoose.connect('mongodb://127.0.0.1:27017/nest-f1')
     .then(() => console.log('Connected!'));
@@ -32,7 +32,7 @@ function getTableData(url: string) {
                 var data = tablesAsJson2[0][z]['Driver'].trim().replace(/(\r\n|\n|\r)/gm, "").replace(/ +(?= )/g, '');
                 var driver = data?.split(' ');
                 var lastDriver = driver.pop();
-                rawDocuments.push(new RayceResultModel({
+                rawDocuments.push(new RaceResultModel({
                     pkey: sha1(words[0] + words[2] + words[3] + tablesAsJson2[0][z]['Driver'] + tablesAsJson2[0][z]['Laps']),
                     year: words[0],
                     raceID: words[2],
@@ -49,7 +49,7 @@ function getTableData(url: string) {
 
             }
 
-            RayceResultModel.insertMany(rawDocuments)
+            RaceResultModel.insertMany(rawDocuments)
                 .then(async function (mongooseDocuments) {
                     console.log("getTableData done" + url);
                     let data = await RacesJobResultModel.findOneAndUpdate({ url: url }, { status: true });
