@@ -33,7 +33,9 @@ npx tsc
 
 The crawl process consists of creating a Job saved to the database to check the status and step two executing and updating the completed status.
 There are two tables of data to be crawled in sequential order.
+
 In folder crawling-f1
+
 Create Job
 
 ```bash
@@ -48,7 +50,9 @@ node .\dist\src\crawRacesInfo.js
 If you see the message _all Done_, the job is done
 
 Do the next job
+
 In folder crawling-f1
+
 Create Job
 
 ```bash
