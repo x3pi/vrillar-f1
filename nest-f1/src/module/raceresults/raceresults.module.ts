@@ -9,4 +9,4 @@ import { Raceresults, RaceresultsSchema } from './schemas/raceresults.schema';
     controllers: [RaceresultsController],
     providers: [RaceresultsService],
 })
-export class RaceresultsModule { }
+export class RaceresultsModule { } 

@@ -6,41 +6,30 @@ import {
     Patch,
     Param,
     Delete,
+    Query,
 } from '@nestjs/common';
-import { ApiTags } from '@nestjs/swagger';
+import { ApiQuery, ApiTags } from '@nestjs/swagger';
 import { CreateRaceResultDto } from './dto/create-raceresults.dto';
 import { RaceresultsService } from './raceresults.service';
-import { Raceresults, RaceresultsDocument } from './schemas/raceresults.schema';
+import { Raceresults } from './schemas/raceresults.schema';
 
 
 @Controller('Raceresults')
 @ApiTags('Raceresults')
 export class RaceresultsController {
     constructor(private readonly RaceresultsService: RaceresultsService) { }
-
-    @Post()
-    async create(@Body() createCatDto: CreateRaceResultDto) {
-        console.log(createCatDto);
-        return this.RaceresultsService.create(createCatDto);
+    @Get(':year/races/info')
+    findInfoRacesByYear(@Param('year') year: number) {
+        return this.RaceresultsService.findInfoRacesByYear(year);
     }
 
-    @Get()
-    async findAll(): Promise<Raceresults[]> {
-        return this.RaceresultsService.findAll();
+    @Get(':year/teams/info')
+    findInfoTeamsByYear(@Param('year') year: number) {
+        return this.RaceresultsService.findInfoTeamByYear(year);
     }
 
-    @Get(':id')
-    findOne(@Param('id') id: string) {
-        return this.RaceresultsService.findOne(+id);
-    }
-
-    @Patch(':id')
-    update(@Param('id') id: string, @Body() updateCatDto: CreateRaceResultDto) {
-        return this.RaceresultsService.update(+id, updateCatDto);
-    }
-
-    @Delete(':id')
-    remove(@Param('id') id: string) {
-        return this.RaceresultsService.remove(+id);
+    @Get(':year/drives/info')
+    findInfoDrivesByYear(@Param('year') year: number) {
+        return this.RaceresultsService.findInfoDrivesByYear(year);
     }
 }

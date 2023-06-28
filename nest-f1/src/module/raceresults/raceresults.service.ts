@@ -9,24 +9,89 @@ import { Raceresults, RaceresultsDocument } from './schemas/raceresults.schema';
 export class RaceresultsService {
     constructor(@InjectModel(Raceresults.name) private catModel: Model<RaceresultsDocument>) { }
 
-    async create(CreateRaceResultDto: CreateRaceResultDto): Promise<Raceresults> {
-        const createdCat = new this.catModel(CreateRaceResultDto);
-        return createdCat.save();
+    findInfoRacesByYear(year: number) {
+        return this.catModel.aggregate([
+            {
+                '$match': {
+                    'year': Number(year)
+                }
+            }, {
+                '$sort': {
+                    'laps': -1
+                }
+            }, {
+                '$group': {
+                    '_id': '$raceID',
+                    'raceName': {
+                        '$first': '$raceName'
+                    },
+                    'laps': {
+                        '$first': '$laps'
+                    },
+                    'car': {
+                        '$first': '$car'
+                    },
+                    'winner': {
+                        '$first': '$driver'
+                    },
+                    'time': {
+                        '$first': '$timeOrRetired'
+                    },
+                }
+            }
+        ])
     }
 
-    async findAll(): Promise<Raceresults[]> {
-        return this.catModel.find().exec();
+
+    findInfoTeamByYear(year: number) {
+        return this.catModel.aggregate([
+            {
+                '$match': {
+                    'year': Number(year)
+                }
+            },
+            {
+                '$group': {
+                    '_id': '$car',
+                    'pts': {
+                        '$sum': '$pts'
+                    }
+                }
+            },
+            {
+                '$sort': {
+                    'pts': -1
+                }
+            }
+        ])
     }
 
-    findOne(id: number) {
-        return this.catModel.findOne({ year: 2023 })
-    }
-
-    update(id: number, updateCatDto: UpdateRaceResultDto) {
-        return `This action updates a #${id} cat`;
-    }
-
-    remove(id: number) {
-        return `This action removes a #${id} cat`;
+    findInfoDrivesByYear(year: number) {
+        return this.catModel.aggregate([
+            {
+                '$match': {
+                    'year': Number(year)
+                }
+            },
+            {
+                '$group': {
+                    '_id': '$driver',
+                    'pts': {
+                        '$sum': '$pts'
+                    },
+                    'nationality': {
+                        '$first': '$lastDriver'
+                    },
+                    'car': {
+                        '$first': '$car'
+                    }
+                }
+            },
+            {
+                '$sort': {
+                    'pts': -1
+                }
+            }
+        ])
     }
 }
