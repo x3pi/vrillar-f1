@@ -48,4 +48,10 @@ export class RaceresultsController {
         return this.RaceresultsService.findInfoDrivesByYearAndDriveName(year, driveName);
     }
 
+    
+    @Get(':year/rank/:teamName')
+    findRankByYearAndTeamName(@Param('year') year: number, @Param('teamName') teamName: string) {
+        return this.RaceresultsService.findRankByYearAndTeamName(year, teamName);
+    }
+
 }

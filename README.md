@@ -109,6 +109,9 @@ Detailed results information by year by teamName.
 
 Team name can be obtained from api _/Raceresults/{year}/races_
 
+## /Raceresults/{year}/rank/{teamName}
+
+Returns a team's rank by year.
 
 # Result video
 

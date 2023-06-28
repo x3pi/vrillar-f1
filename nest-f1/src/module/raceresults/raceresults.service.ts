@@ -154,4 +154,38 @@ export class RaceresultsService {
             }
         ])
     }
+
+
+    findRankByYearAndTeamName(year: number, teamName: string) {
+        return this.catModel.aggregate([
+            {
+                '$match': {
+                    'year': Number(year)
+                }
+            }, {
+                '$group': {
+                    '_id': '$car',
+                    'pts': {
+                        '$sum': '$pts'
+                    }
+                }
+            }, {
+                '$setWindowFields': {
+                    'sortBy': {
+                        'pts': -1
+                    },
+                    'output': {
+                        'rank': {
+                            '$rank': {}
+                        }
+                    }
+                }
+            }, {
+                '$match': {
+                    '_id': teamName
+                }
+            }
+        ])
+    }
+
 }
