@@ -35,11 +35,14 @@ The crawl process consists of creating a Job saved to the database to check the 
 There are two tables of data to be crawled in sequential order.
 
 ```
-    \\ In folder crawling-f1
-    \\ Create Job
-    node .\dist\src\createDataRacesJob.js
-    \\ Run Job
-    node .\dist\src\crawRacesInfo.js
+\\In folder crawling-f1
+\\Create Job
+
+node .\dist\src\createDataRacesJob.js
+
+\\Run Job
+
+node .\dist\src\crawRacesInfo.js
 
 ```
 
@@ -48,11 +51,14 @@ If you see the message _all Done_, the job is done
 Do the next job
 
 ```
-    \\ In folder crawling-f1
-    \\ Create Job
-    node .\dist\src\createDataRacesResultJob.js
-    \\ Run Job
-    node .\dist\src\crawRacesResult.js
+\\ In folder crawling-f1
+\\ Create Job
+
+node .\dist\src\createDataRacesResultJob.js
+
+\\ Run Job
+
+node .\dist\src\crawRacesResult.js
 
 ```
 
