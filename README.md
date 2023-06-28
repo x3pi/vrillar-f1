@@ -25,41 +25,43 @@ Note that only mongodb mongodb://127.0.0.1:27017 has been hard coded.
 
 Install module and compile typescript
 
-```
-    cd crawling-f1
-    npm install
-    npx tsc
+```javascript
+cd crawling-f1
+npm install
+npx tsc
 ```
 
 The crawl process consists of creating a Job saved to the database to check the status and step two executing and updating the completed status.
 There are two tables of data to be crawled in sequential order.
 
-```
-\\In folder crawling-f1
-\\Create Job
+In folder crawling-f1
 
+Create Job
+
+```bash
 node .\dist\src\createDataRacesJob.js
+```
+Run Job
 
-\\Run Job
-
+```bash
 node .\dist\src\crawRacesInfo.js
-
 ```
 
 If you see the message _all Done_, the job is done
 
 Do the next job
 
-```
-\\ In folder crawling-f1
-\\ Create Job
+In folder crawling-f1
 
+Create Job
+
+```bash
 node .\dist\src\createDataRacesResultJob.js
+```
+Run Job
 
-\\ Run Job
-
+```bash
 node .\dist\src\crawRacesResult.js
-
 ```
 
 If you see the message _all Done_, the job is done
@@ -70,10 +72,10 @@ I have exported it to a json file: _vrillar-f1\nest-f1\nest-f1.rayceresults.json
 
 ## Run server API
 
-```
-    cd nest-f1
-    npm install
-    npm start
+```javascript
+cd nest-f1
+npm install
+npm start
 ```
 
 Open http://localhost:3000/api#/ Swagger interface can easily interact with API.
