@@ -15,14 +15,21 @@ console.log(hash); // 104ab42f1193c336aa2cf08a2c946d5c6fd0fcdb
 
 async function crawRacesInfo() {
     const all = await RacesJobModel.find({ status: false });
-
-    all.map((job) => {
-        getTableData(job['year'])
+    let requestsArray: any[] = []
+    await  all.map(async (job) => {
+        await requestsArray.push(getTableData(job['year']))
     });
+
+    console.log(requestsArray.length)
+    Promise.all(requestsArray).then(allResults => {
+        console.log(allResults)
+        console.log("all Done")
+    })
+
 }
 crawRacesInfo()
-function getTableData(year: number) {
-    Tabletojson.convertUrl(
+async function getTableData(year: number) {
+    await Tabletojson.convertUrl(
         'https://www.formula1.com/en/results/jcr:content/resultsarchive.html/' + year + '/races.html',
         function (tablesAsJson: any) {
             var rawDocuments: any[] = []
@@ -44,14 +51,13 @@ function getTableData(year: number) {
                     Time: tablesAsJson[0][y]['Time'],
                 }))
             }
-            RacesInfoModel.insertMany(rawDocuments)
+            return RacesInfoModel.insertMany(rawDocuments)
                 .then(async function (mongooseDocuments) {
                     console.log("getTableData done" + year);
-                    let data = await RacesJobModel.findOneAndUpdate({ year: year }, { status: true });
+                    // let data = await RacesJobModel.findOneAndUpdate({ year: year }, { status: true });
                 })
                 .catch(function (err) {
                     console.log("getTableData error" + year);
-                    console.log(err);
                 });
         })
 }
