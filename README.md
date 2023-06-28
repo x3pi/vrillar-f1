@@ -18,8 +18,7 @@ I use docker to run mongodb. Check out docker-compose.yml at
 
 _\vrillar-f1\crawling-f1\docker-compose.yml_
 
-Note that only mongodb mongodb://127.0.0.1:27017 has been hard coded.
-
+Note that the mongodb address mongodb://127.0.0.1:27017 has been hardcoded.
 
 ## Run crawling-f1
 
