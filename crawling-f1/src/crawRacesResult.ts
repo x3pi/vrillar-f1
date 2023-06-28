@@ -15,16 +15,20 @@ console.log(hash); // 104ab42f1193c336aa2cf08a2c946d5c6fd0fcdb
 
 async function crawRacesResult() {
     const all = await RacesJobResultModel.find({ status: false });
-
-    all.map((job) => {
-        getTableData(job['url'])
+    let requestsArray: any[] = []
+    await  all.map(async (job) => {
+        await requestsArray.push( getTableData(job['url']))
     });
+    Promise.all(requestsArray).then(allResults => {
+        console.log(allResults)
+        console.log("all Done")
+    })
 }
-function getTableData(url: string) {
+async function getTableData(url: string) {
     var words = url.split('/');
     words = words.splice(3)
     var stringUrl = words.join('/')
-    Tabletojson.convertUrl(
+    await Tabletojson.convertUrl(
         'https://www.formula1.com/en/results/jcr:content/resultsarchive.html/' + stringUrl,
         function (tablesAsJson2: any) {
             var rawDocuments: any[] = []
@@ -49,10 +53,10 @@ function getTableData(url: string) {
 
             }
 
-            RaceResultModel.insertMany(rawDocuments)
+            return RaceResultModel.insertMany(rawDocuments)
                 .then(async function (mongooseDocuments) {
                     console.log("getTableData done" + url);
-                    let data = await RacesJobResultModel.findOneAndUpdate({ url: url }, { status: true });
+                    await RacesJobResultModel.findOneAndUpdate({ url: url }, { status: true });
                 })
                 .catch(function (err) {
                     console.log("getTableData error" + url);
