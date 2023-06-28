@@ -13,7 +13,7 @@ export class RaceresultsService {
         return this.catModel.aggregate([
             {
                 '$match': {
-                    'year': Number(year)
+                    'year': Number(year),
                 }
             }, {
                 '$sort': {
@@ -85,6 +85,66 @@ export class RaceresultsService {
                     'car': {
                         '$first': '$car'
                     }
+                }
+            },
+            {
+                '$sort': {
+                    'pts': -1
+                }
+            }
+        ])
+    }
+
+
+    findInfoRacesByYearAndRaceName(year: number, raceName: string) {
+        return this.catModel.aggregate([
+            {
+                '$match': {
+                    'year': Number(year),
+                    'raceName': raceName
+
+                }
+            }, {
+                '$sort': {
+                    'laps': -1,
+                    'pts': -1
+                }
+            },
+        ])
+    }
+
+
+    findInfoTeamsByYearAndTeamName(year: number, teamName: string) {
+        return this.catModel.aggregate([
+            {
+                '$match': {
+                    'year': Number(year),
+                    'car': teamName
+                }
+            },
+            {
+                '$group': {
+                    '_id': '$raceName',
+                    'pts': {
+                        '$sum': '$pts'
+                    }
+                }
+            },
+            {
+                '$sort': {
+                    'pts': -1
+                }
+            }
+        ])
+    }
+
+
+    findInfoDrivesByYearAndDriveName(year: number, driveName: string) {
+        return this.catModel.aggregate([
+            {
+                '$match': {
+                    'year': Number(year),
+                    'driver': driveName
                 }
             },
             {
