@@ -97,13 +97,13 @@ Detailed results information by year by race name.
 
 Race name can be obtained from api _/Raceresults/{year}/races_
 
-## /Raceresults/{year}/races/{deriveName}
+## /Raceresults/{year}/drives/{deriveName}
 
 Detailed results information by year by derive name.
 
 Derive name can be obtained from api _/Raceresults/{year}/drives_
 
-## /Raceresults/{year}/races/{teamName}
+## /Raceresults/{year}/teams/{teamName}
 
 Detailed results information by year by teamName.
 
