@@ -2,6 +2,8 @@
 
 # Project overview
 
+Crawl data from https://www.formula1.com
+
 The project has two folders
 
 _crawling-f1_: Directory containing crawl data tool. In this part I used the tabletojson library. If the project is real I will create a fork but here I have intervened to modify the code of the library to suit the needs. So I included this module in the commit.
